@@ -2,6 +2,8 @@ FROM debian:10
 
 ENV container docker
 
+ENV LC_ALL C
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' >> /etc/apt/sources.list
@@ -15,7 +17,7 @@ RUN sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
 
 RUN ln -s /lib/systemd/system /sbin/init
 
-#RUN sed -i 's#root:\*#root:sa3tHJ3/KuYvI#' /etc/shadow
+RUN sed -i 's#root:\*#root:sa3tHJ3/KuYvI#' /etc/shadow
 ENV init /lib/systemd/systemd
 VOLUME [ "/sys/fs/cgroup" ]
 RUN systemctl set-default multi-user.target
