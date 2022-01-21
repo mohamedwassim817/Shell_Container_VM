@@ -12,6 +12,7 @@ echo "  --create : passer en parametre le nombre de machines
 "
 }
 
+
  
 function createVm(){
 
@@ -22,7 +23,8 @@ echo "creation vm"
 
 
 
- for machine in $(seq $v  $2 )
+
+ for machine in $(seq $v  3 )
   do
       docker build .
   
@@ -51,6 +53,8 @@ echo "creation vm"
 
     #info network
       ipadd=$(docker exec -it $idContainer /bin/bash -c "ip addr | grep inet -m 3 | xargs -n 3 | tail -n 3 | awk '{print"$($2)"}'" )
+
+  
    #ip address
      ipadd1=$(docker exec -it $idContainer /bin/bash -c " hostname -I " )
 
@@ -62,7 +66,9 @@ echo "creation vm"
 
     docker cp ~/.ssh/id_rsa.pub  $idContainer:$HOME/.ssh/authorized_keys
 
-   
+   A+="$ipadd,"
+
+ 
 
 
     docker exec -it $idContainer /bin/bash -c "systemctl start sshd"
@@ -71,9 +77,12 @@ echo "creation vm"
 
  
    # docker exec -it $idContainer /bin/bash -c ""
+  
+ # ARGS=( "${ARGS[@]}"  "$ipadd1" )
 
-
-     echo "$ipadd1"  
+   
+    
+ #ARGS+=(500,400)
 
  # ces trois commandes vont etre executés automatiquement
   
@@ -83,8 +92,13 @@ echo "creation vm"
 
    #-f $ipadd1
 
+   #echo "${table[@]}"
+
+ 
+
 done
 
+ echo "${A[@]}"
 
 
 }
