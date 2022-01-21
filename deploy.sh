@@ -98,7 +98,7 @@ echo "creation vm"
 
 done
 
- echo "${A[@]}"
+ echo "${A[@]}" | grep -n 1 | awk '{print $1}'
 
 
 }
