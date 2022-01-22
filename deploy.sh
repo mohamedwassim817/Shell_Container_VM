@@ -21,10 +21,17 @@ echo "creation vm"
 
  v=1
 
+ m=$machines
+  if [ -n "$2" ]
+  then
+     echo "pas de nombre de machines"
+     m=1
+   else
+    
+    echo "nombres de machines a cree $m"
+  fi 
 
-
-
- for machine in $(seq $v  3 )
+ for machine in $(seq $v  $machines )
   do
       docker build .
   
@@ -140,8 +147,9 @@ echo "$v" > known_hosts
 
 
 if [ "$1" == "--create" ]
-then
-  createVm $2
+then  
+    machines=$2
+    createVm $machines
 
    elif [  "$1" == "--stop"  ]
    then
